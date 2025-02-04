@@ -27,7 +27,7 @@ public:
 	float DelayTime = 2.0f;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class AEnemyFactory> Enemy;
+	TSubclassOf<class AEnemyActor> Enemy;
 
 
 private:
