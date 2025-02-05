@@ -4,6 +4,7 @@
 #include "ShootingGameModeBase.h"
 #include "Blueprint/UserWidget.h"
 #include "MainWidget.h"
+#include "MenuWidget.h"
 #include "Components/TextBlock.h"
 
 void AShootingGameModeBase::AddScore(int32 point)
@@ -11,6 +12,19 @@ void AShootingGameModeBase::AddScore(int32 point)
 	currentScore += point;
 
 	PrintScore();
+}
+
+void AShootingGameModeBase::ShowMenu()
+{
+	if (MenuWidget != nullptr)
+	{
+		MenuUI = CreateWidget<UMenuWidget>(GetWorld(), MenuWidget);
+	
+		if (MenuUI != nullptr)
+		{
+			MenuUI->AddToViewport();
+		}
+	}
 }
 
 void AShootingGameModeBase::BeginPlay()

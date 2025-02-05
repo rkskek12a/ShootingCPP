@@ -17,8 +17,14 @@ class SHOOTINGCPP_API AShootingGameModeBase : public AGameModeBase
 public:
 	void AddScore(int32 point);
 
+	void ShowMenu();
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UMainWidget> MainWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UMenuWidget> MenuWidget;
+
 
 protected:
 	virtual void BeginPlay() override;
@@ -28,5 +34,8 @@ private:
 
 	class UMainWidget* MainUI;
 
+	class UMenuWidget* MenuUI;
+
 	void PrintScore();
+
 };

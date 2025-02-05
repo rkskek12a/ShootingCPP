@@ -56,16 +56,18 @@ void Abullet::OnbulletOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 		OtherActor->Destroy();
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionFX, GetActorLocation(), GetActorRotation());
-	}
+	
+		AGameModeBase* currentMode = GetWorld()->GetAuthGameMode();
 
-	AGameModeBase* currentMode = GetWorld()->GetAuthGameMode();
+		AShootingGameModeBase* currentGameModeBase = Cast<AShootingGameModeBase>(currentMode);
 
-	AShootingGameModeBase* currentGameModeBase = Cast<AShootingGameModeBase>(currentMode);
+		if (currentGameModeBase != nullptr)
+		{
+			currentGameModeBase->AddScore(1);
+		}
+}
 
-	if (currentGameModeBase != nullptr)
-	{
-		currentGameModeBase->AddScore(1);
-	}
+
 
 	Destroy();
 }
