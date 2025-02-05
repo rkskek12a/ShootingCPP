@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "EnemyActor.h"
 
 // Sets default values
 Abullet::Abullet()
@@ -19,6 +20,9 @@ Abullet::Abullet()
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StatickMeshComponent"));
 	MeshComp->SetupAttachment(BoxComp);
+
+	BoxComp->SetCollisionProfileName(TEXT("Bullet"));
+
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +30,8 @@ void Abullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &Abullet::OnbulletOverlap);
+
 }
 
 // Called every frame
@@ -36,5 +42,15 @@ void Abullet::Tick(float DeltaTime)
 	FVector NewLocation = GetActorLocation() + GetActorForwardVector() * MoveSpeed * DeltaTime;
 
 	SetActorLocation(NewLocation);
+}
+
+void Abullet::OnbulletOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AEnemyActor* Enemy = Cast<AEnemyActor>(OtherActor);
+
+	if (Enemy != nullptr)
+	{
+		OtherActor->Destroy();
+	}
 }
 

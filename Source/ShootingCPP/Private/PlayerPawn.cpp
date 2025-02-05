@@ -28,6 +28,12 @@ APlayerPawn::APlayerPawn()
 	FirePosition = CreateDefaultSubobject<UArrowComponent>(TEXT("Fireposition"));
 	FirePosition->SetupAttachment(BoxComp);
 
+	BoxComp->SetGenerateOverlapEvents(true);
+	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	BoxComp->SetCollisionObjectType(ECC_GameTraceChannel1); //Player로 설정을 하겠다는 의미
+
+	BoxComp->SetCollisionResponseToAllChannels(ECR_Ignore); //boxcomp의 collision을 다 ignore으로 변경
+	BoxComp->SetCollisionResponseToChannel(ECC_GameTraceChannel2, ECR_Overlap); //boxcomp의 enemy(channel2)
 
 
 }
