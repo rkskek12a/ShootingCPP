@@ -14,4 +14,19 @@ class SHOOTINGCPP_API AShootingGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	void AddScore(int32 point);
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UMainWidget> MainWidget;
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	int32 currentScore = 0;
+
+	class UMainWidget* MainUI;
+
+	void PrintScore();
 };
