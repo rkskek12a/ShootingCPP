@@ -6,6 +6,7 @@
 #include "MainWidget.h"
 #include "MenuWidget.h"
 #include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
 
 void AShootingGameModeBase::AddScore(int32 point)
 {
@@ -23,6 +24,11 @@ void AShootingGameModeBase::ShowMenu()
 		if (MenuUI != nullptr)
 		{
 			MenuUI->AddToViewport();
+
+			UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+			GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(true);
+
 		}
 	}
 }
