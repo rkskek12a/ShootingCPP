@@ -66,7 +66,8 @@ void APlayerPawn::Tick(float DeltaTime)
 
 	FVector NewLocation = GetActorLocation() + Direction * MoveSpeed * DeltaTime;
 
-	SetActorLocation(NewLocation);
+	SetActorLocation(NewLocation, true);
+
 
 
 }
