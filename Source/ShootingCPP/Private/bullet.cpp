@@ -4,7 +4,9 @@
 #include "bullet.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/ArrowComponent.h"
 #include "EnemyActor.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 Abullet::Abullet()
@@ -51,6 +53,9 @@ void Abullet::OnbulletOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	if (Enemy != nullptr)
 	{
 		OtherActor->Destroy();
+
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionFX, GetActorLocation(), GetActorRotation());
 	}
+	Destroy();
 }
 

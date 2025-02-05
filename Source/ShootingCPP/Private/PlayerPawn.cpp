@@ -25,7 +25,7 @@ APlayerPawn::APlayerPawn()
 	FVector BoxSize = FVector(50.0f, 50.0f, 50.0f);
 	BoxComp->SetBoxExtent(BoxSize);
 
-	FirePosition = CreateDefaultSubobject<UArrowComponent>(TEXT("Fireposition"));
+	FirePosition = CreateDefaultSubobject<UArrowComponent>(TEXT("Fire Position"));
 	FirePosition->SetupAttachment(BoxComp);
 
 	BoxComp->SetGenerateOverlapEvents(true);
@@ -34,7 +34,6 @@ APlayerPawn::APlayerPawn()
 
 	BoxComp->SetCollisionResponseToAllChannels(ECR_Ignore); //boxcomp의 collision을 다 ignore으로 변경
 	BoxComp->SetCollisionResponseToChannel(ECC_GameTraceChannel2, ECR_Overlap); //boxcomp의 enemy(channel2)
-
 
 }
 
