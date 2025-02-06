@@ -10,25 +10,25 @@ const FString USaveGameManager::SlotName = TEXT("ShootingGameSaveData");
 void USaveGameManager::SaveGameData(int32 UserIndex, int32 NewBestScore)
 {
 	//저장공간 만드는 로직
-	UShootingGameSaveData* SaveGameData = nullptr;
+	UShootingGameSaveData* SaveGameInstanse = nullptr;
 
 	if (UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex))
 	{
 		//해당 슬롯 이름으로 되어있고 해당 번호인 세이브 파일이 있다.
-		SaveGameData = Cast<UShootingGameSaveData>(UGameplayStatics::LoadGameFromSlot(SlotName, UserIndex));
+		SaveGameInstanse = Cast<UShootingGameSaveData>(UGameplayStatics::LoadGameFromSlot(SlotName, UserIndex));
 
 	}
-	if (!SaveGameData)
+	if (!SaveGameInstanse)
 	{
-		SaveGameData = Cast<UShootingGameSaveData>(UGameplayStatics::CreateSaveGameObject(UShootingGameSaveData::StaticClass()));
+		SaveGameInstanse = Cast<UShootingGameSaveData>(UGameplayStatics::CreateSaveGameObject(UShootingGameSaveData::StaticClass()));
 
 	}
 
 	//둘중에 더 큰 수를 반환
-	SaveGameData->BestScore = FMath::Max(SaveGameData->BestScore, NewBestScore);
+	SaveGameInstanse->BestScore = FMath::Max(SaveGameInstanse->BestScore, NewBestScore);
 	
 	//저장 로직
-	if (UGameplayStatics::SaveGameToSlot(SaveGameData, SlotName, UserIndex))
+	if (UGameplayStatics::SaveGameToSlot(SaveGameInstanse, SlotName, UserIndex))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("최고 점수 저장 성공!"));
 	}
@@ -42,15 +42,15 @@ UShootingGameSaveData* USaveGameManager::LoadGameData(int32 UserIndex, bool& bSu
 {
 	if (UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex))
 	{
-		UShootingGameSaveData* LoadGameData = Cast<UShootingGameSaveData>(UGameplayStatics::LoadGameFromSlot(SlotName, UserIndex));
+		UShootingGameSaveData* LoadGameInstance = Cast<UShootingGameSaveData>(UGameplayStatics::LoadGameFromSlot(SlotName, UserIndex));
 
-		if (LoadGameData != nullptr) //!LoadGameData와 같은 문장
+		if (LoadGameInstance != nullptr) //!LoadGameData와 같은 문장
 		{
 			//불러오는데 성공해서 들어왔습니다
 			bSuccess = true;
 			UE_LOG(LogTemp, Warning, TEXT("세이브 데이터 로드 성공"));
 
-			return LoadGameData;
+			return LoadGameInstance;
 		}
 
 	}
