@@ -26,10 +26,10 @@ protected:
 
 private:
 
-	UPROPERTY()
+	UFUNCTION()
 	void Restart();
 
-	UPROPERTY()
+	UFUNCTION()
 	void Quit();
 
 };
