@@ -107,6 +107,7 @@ void APlayerPawn::Fire()
 	Abullet* bullet = GetWorld()->SpawnActor<Abullet>(
 		BulletFactory, FirePosition->GetComponentLocation(), 
 		FirePosition->GetComponentRotation());
+
 	UGameplayStatics::PlaySound2D(GetWorld(), FireSound);
 }
 
