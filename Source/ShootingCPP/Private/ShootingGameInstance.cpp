@@ -15,6 +15,17 @@ void UShootingGameInstance::Init()
 	}
 }
 
+void UShootingGameInstance::Shutdown()
+{
+	Super::Shutdown();
+
+	if (SaveManager)
+	{
+		SaveManager->RemoveFromRoot();
+		SaveManager = nullptr;
+	}
+}
+
 USaveGameManager* UShootingGameInstance::GetSaveGameManager()
 {
 	return SaveManager;

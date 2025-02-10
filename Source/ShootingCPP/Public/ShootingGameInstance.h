@@ -18,6 +18,8 @@ class SHOOTINGCPP_API UShootingGameInstance : public UGameInstance
 public:
 	virtual void Init() override;
 
+	virtual void Shutdown() override;
+
 	UFUNCTION(BlueprintCallable, Category = "Save System")
 	USaveGameManager* GetSaveGameManager();
 
